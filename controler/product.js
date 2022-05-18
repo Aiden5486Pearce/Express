@@ -1,10 +1,9 @@
+const path = require('path');
+const rootDir = require('../util/path');
 const products = [];
 exports.getAddProduct = (req, res, next) => {
-    console.log('Hi from here');
-    res.render('add-product', {
-        pageTitle: 'Add Product',
-        path: '/admin/add-product'
-    });
+    console.log('Hi there');
+    res.sendFile(path.join(rootDir,'views','add-product.html'));
 };
 
 exports.postAddProduct = (req, res, next) => {
@@ -13,9 +12,20 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-    res.render('shop', {
-        prod: products,
-        pageTitle: 'Shop',
-        path: '/'
-    });
+    res.sendFile(path.join(rootDir,'views','shop.html'));
+};
+
+exports.contactGetProducts = (req,res,next)=>{
+    console.log('SignIn first');
+    res.sendFile(path.join(rootDir,'views','contact.html'));
+    
+};
+
+exports.contactPostProducts =(req,res,next)=>{
+    products.push({title: req.body.title});
+    res.redirect('/success');
+}
+
+exports.successMsg = (req,res,next)=>{
+    res.sendFile(path.join(rootDir,'views','success.html'));
 };
